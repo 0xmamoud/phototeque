@@ -24,6 +24,11 @@
                 class="form-control"
               />
             </div>
+            <% if (errors.length) { %>
+            <div role="alert" class="alert alert-danger mt-4 bm-2">
+              <%= errors[0] %>
+            </div>
+            <% } %>
             <button type="submit" class="btn btn-primary mt-4">Créer</button>
           </form>
         </div>
