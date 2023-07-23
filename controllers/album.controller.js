@@ -1,6 +1,7 @@
 const Album = require("../models/Album");
 const path = require("path");
 const fs = require("fs");
+const rimraf = require("rimraf");
 
 const albums = async (req, res) => {
   const albums = await Album.find();
@@ -82,6 +83,17 @@ const createAlbum = async (req, res) => {
   }
 };
 
+const deleteAlbum = async (req, res) => {
+  const idAlbum = req.params.id;
+  await Album.findByIdAndDelete(idAlbum);
+
+  const albumPath = path.join(__dirname, "../public/upload", idAlbum);
+
+  rimraf(albumPath, () => {
+    res.redirect("/albums");
+  });
+};
+
 const deleteImage = async (req, res) => {
   const idAlbum = req.params.id;
   const album = await Album.findById(idAlbum);
@@ -107,5 +119,6 @@ module.exports = {
   addImage,
   createAlbumForm,
   createAlbum,
+  deleteAlbum,
   deleteImage,
 };

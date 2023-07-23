@@ -12,6 +12,7 @@ router.get("/albums/:id", albumController.album);
 
 router.post("/albums/:id/add-image", albumController.addImage);
 
+router.get("/albums/:id/delete", albumController.deleteAlbum);
 router.get("/albums/:id/delete/:index", albumController.deleteImage);
 
 module.exports = router;
