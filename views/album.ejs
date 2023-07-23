@@ -4,6 +4,42 @@
     <%- include("partials/head") %>
   </head>
   <body>
-    <%- include("partials/nav") %> <%- include("partials/script") %>
+    <%- include("partials/nav") %>
+
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col">
+          <a href="/" class="mt-4">&lt; Retour</a>
+          <h1 class="mb-4"><%= album.title %></h1>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ajouter une image</h5>
+              <form
+                action="/albums/<%= album._id %>/add-image"
+                method="post"
+                class="form-inline"
+                enctype="multipart/form-data"
+              >
+                <input type="file" name="image" class="form-control-file" />
+                <button type="submit" class="btn btn-primary mt-3">
+                  Ajouter
+                </button>
+              </form>
+              <% if (errors.length) { %>
+              <div role="alert" class="alert alert-danger mt-4 bm-2">
+                <%= errors[0] %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("partials/script") %>
   </body>
 </html>

@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
+const fileUpload = require("express-fileupload");
 const albumRoutes = require("./routes/album.route");
 
 const app = express();
@@ -12,9 +13,12 @@ mongoose.connect("mongodb://127.0.0.1:27017/phototeque");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(fileUpload());
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
+
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
