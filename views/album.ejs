@@ -38,6 +38,27 @@
           </div>
         </div>
       </div>
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+        <% album.image.forEach((image, index) => { %>
+
+        <div class="col">
+          <div class="card">
+            <img
+              src="/upload\<%= album._id %>\<%= image %>"
+              alt=""
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5><%= image %></h5>
+              <a href="/albums/<%= album._id %>/delete/<%= index %>"
+                >Suprimmer</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <%}); %>
+      </div>
     </div>
 
     <%- include("partials/script") %>

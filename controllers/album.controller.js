@@ -82,10 +82,30 @@ const createAlbum = async (req, res) => {
   }
 };
 
+const deleteImage = async (req, res) => {
+  const idAlbum = req.params.id;
+  const album = await Album.findById(idAlbum);
+
+  const imageIndex = req.params.index;
+  const image = album.image[imageIndex];
+  if (!image) {
+    res.redirect(`/albums/${idAlbum}`);
+    return;
+  }
+
+  album.image.splice(imageIndex, 1);
+  await album.save();
+
+  const imagePath = path.join(__dirname, "../public/upload", idAlbum, image);
+  fs.unlinkSync(imagePath);
+  res.redirect(`/albums/${idAlbum}`);
+};
+
 module.exports = {
   albums,
   album,
   addImage,
   createAlbumForm,
   createAlbum,
+  deleteImage,
 };
